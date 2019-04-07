@@ -12,6 +12,14 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var imageView: UIImageView!
 
-    // we will add more stuff here
-
+    var photoInfo = PhotoInfo() {
+        
+        willSet(newInfo) {
+            
+            let imageURL = URLIntoDocuments(newInfo.filename)
+            if let image = UIImage(named: imageURL.path) {
+                imageView.image = image
+            }
+        }
+    }
 }
