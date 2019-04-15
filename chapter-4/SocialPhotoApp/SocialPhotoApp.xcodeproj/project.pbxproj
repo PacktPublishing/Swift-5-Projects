@@ -19,6 +19,9 @@
 		49A457E222590EF7007B322B /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A457E122590EF7007B322B /* PhotoCollectionViewController.swift */; };
 		49A457E422593659007B322B /* PhotoCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A457E322593659007B322B /* PhotoCollectionViewModel.swift */; };
 		49A4580E2264EA8E007B322B /* SocialPhotoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4580D2264EA8E007B322B /* SocialPhotoAppTests.swift */; };
+		49A458172264F5BC007B322B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49A458162264F5BC007B322B /* GoogleService-Info.plist */; };
+		72816D726C0D9F6721DA41FD /* Pods_SocialPhotoAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0105A206BBC1F8094468D9C6 /* Pods_SocialPhotoAppTests.framework */; };
+		7CE411ED862B5E9DC37BA8EB /* Pods_SocialPhotoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF8C11017F87B4F9D1E4E87 /* Pods_SocialPhotoApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0105A206BBC1F8094468D9C6 /* Pods_SocialPhotoAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialPhotoAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A12D3719C53CF67CA7982E4 /* Pods-SocialPhotoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoApp.debug.xcconfig"; path = "Target Support Files/Pods-SocialPhotoApp/Pods-SocialPhotoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		49A457A8225909C6007B322B /* SocialPhotoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialPhotoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A457AB225909C6007B322B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49A457AD225909C6007B322B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +53,12 @@
 		49A4580B2264EA8E007B322B /* SocialPhotoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocialPhotoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A4580D2264EA8E007B322B /* SocialPhotoAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialPhotoAppTests.swift; sourceTree = "<group>"; };
 		49A4580F2264EA8E007B322B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		49A458152264F1D7007B322B /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = ../README; sourceTree = "<group>"; };
+		49A458162264F5BC007B322B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		72E19C683C8B24301FDD4EAC /* Pods-SocialPhotoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-SocialPhotoAppTests/Pods-SocialPhotoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8DF8C11017F87B4F9D1E4E87 /* Pods_SocialPhotoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialPhotoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96E1B76D56C27A6A94C67A5A /* Pods-SocialPhotoAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoAppTests.release.xcconfig"; path = "Target Support Files/Pods-SocialPhotoAppTests/Pods-SocialPhotoAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		D13A2EE367DFC331EC67AAE4 /* Pods-SocialPhotoApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoApp.release.xcconfig"; path = "Target Support Files/Pods-SocialPhotoApp/Pods-SocialPhotoApp.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7CE411ED862B5E9DC37BA8EB /* Pods_SocialPhotoApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,18 +74,43 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				72816D726C0D9F6721DA41FD /* Pods_SocialPhotoAppTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		267156444AEF64403B478231 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2A12D3719C53CF67CA7982E4 /* Pods-SocialPhotoApp.debug.xcconfig */,
+				D13A2EE367DFC331EC67AAE4 /* Pods-SocialPhotoApp.release.xcconfig */,
+				72E19C683C8B24301FDD4EAC /* Pods-SocialPhotoAppTests.debug.xcconfig */,
+				96E1B76D56C27A6A94C67A5A /* Pods-SocialPhotoAppTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		38CFBCA779AEADD34526B683 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8DF8C11017F87B4F9D1E4E87 /* Pods_SocialPhotoApp.framework */,
+				0105A206BBC1F8094468D9C6 /* Pods_SocialPhotoAppTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		49A4579F225909C6007B322B = {
 			isa = PBXGroup;
 			children = (
+				49A458152264F1D7007B322B /* README */,
 				49A457AA225909C6007B322B /* SocialPhotoApp */,
 				49A4580C2264EA8E007B322B /* SocialPhotoAppTests */,
 				49A457A9225909C6007B322B /* Products */,
+				267156444AEF64403B478231 /* Pods */,
+				38CFBCA779AEADD34526B683 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +138,7 @@
 				49A457B2225909C8007B322B /* Assets.xcassets */,
 				49A457B4225909C8007B322B /* LaunchScreen.storyboard */,
 				49A457B7225909C8007B322B /* Info.plist */,
+				49A458162264F5BC007B322B /* GoogleService-Info.plist */,
 			);
 			path = SocialPhotoApp;
 			sourceTree = "<group>";
@@ -122,9 +160,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49A457BA225909C8007B322B /* Build configuration list for PBXNativeTarget "SocialPhotoApp" */;
 			buildPhases = (
+				A504B0574C1AA17F17DDA9AA /* [CP] Check Pods Manifest.lock */,
 				49A457A4225909C6007B322B /* Sources */,
 				49A457A5225909C6007B322B /* Frameworks */,
 				49A457A6225909C6007B322B /* Resources */,
+				FF956CD97AAA1096517728CE /* [CP] Embed Pods Frameworks */,
+				EA1E8BEE042319131A534113 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -139,6 +180,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49A458122264EA8E007B322B /* Build configuration list for PBXNativeTarget "SocialPhotoAppTests" */;
 			buildPhases = (
+				20B9523D82EEEACC0CB40E98 /* [CP] Check Pods Manifest.lock */,
 				49A458072264EA8E007B322B /* Sources */,
 				49A458082264EA8E007B322B /* Frameworks */,
 				49A458092264EA8E007B322B /* Resources */,
@@ -197,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49A457B6225909C8007B322B /* LaunchScreen.storyboard in Resources */,
+				49A458172264F5BC007B322B /* GoogleService-Info.plist in Resources */,
 				49A457B3225909C8007B322B /* Assets.xcassets in Resources */,
 				49A457B1225909C6007B322B /* Main.storyboard in Resources */,
 			);
@@ -210,6 +253,111 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20B9523D82EEEACC0CB40E98 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SocialPhotoAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A504B0574C1AA17F17DDA9AA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SocialPhotoApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA1E8BEE042319131A534113 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SocialPhotoApp/Pods-SocialPhotoApp-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/gRPCCertificates.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/gRPCCertificates.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SocialPhotoApp/Pods-SocialPhotoApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF956CD97AAA1096517728CE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SocialPhotoApp/Pods-SocialPhotoApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
+				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SocialPhotoApp/Pods-SocialPhotoApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		49A457A4225909C6007B322B /* Sources */ = {
@@ -383,6 +531,7 @@
 		};
 		49A457BB225909C8007B322B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A12D3719C53CF67CA7982E4 /* Pods-SocialPhotoApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -400,6 +549,7 @@
 		};
 		49A457BC225909C8007B322B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D13A2EE367DFC331EC67AAE4 /* Pods-SocialPhotoApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -417,6 +567,7 @@
 		};
 		49A458132264EA8E007B322B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 72E19C683C8B24301FDD4EAC /* Pods-SocialPhotoAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -436,6 +587,7 @@
 		};
 		49A458142264EA8E007B322B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96E1B76D56C27A6A94C67A5A /* Pods-SocialPhotoAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
