@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseUI
 
 class PhotoViewController: UIViewController {
 
@@ -24,20 +26,24 @@ class PhotoViewController: UIViewController {
         descriptionView.layer.borderWidth = 1.0
         descriptionView.layer.borderColor = UIColor(white: 0.2, alpha: 0.15).cgColor
 
-        imageView.image = UIImage(named: URLIntoDocuments(photoInfo.filename).path)
+        let storage = Storage.storage()
+        imageView.sd_setImage(with: storage.reference().child(photoInfo.filename),
+                              placeholderImage: UIImage(named: "Downloading"))
+
         titleView.text = photoInfo.title
         descriptionView.text = photoInfo.description
-        tagView.text = photoInfo.tags
+        tagView.text = photoInfo.tags.joined(separator: ",")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if self.isMovingFromParent {
-            photoInfo = PhotoInfo(uid: photoInfo.uid, filename: photoInfo.filename,
+            photoInfo = PhotoInfo(uid: photoInfo.uid,
+                                  filename: photoInfo.filename,
                                   title: titleView.text ?? "Image title goes here",
                                   description: descriptionView.text ?? "",
-                                  tags: tagView.text ?? "")
+                                  tags: PhotoInfo.makeTags(tagView.text))
             if let callback = callback {
                 callback(photoInfo)
             }

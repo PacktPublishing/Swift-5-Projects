@@ -7,19 +7,17 @@
 //
 
 import UIKit
+import Firebase
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var imageView: UIImageView!
 
     var photoInfo = PhotoInfo() {
-        
         willSet(newInfo) {
-            
-            let imageURL = URLIntoDocuments(newInfo.filename)
-            if let image = UIImage(named: imageURL.path) {
-                imageView.image = image
-            }
+            let storage = Storage.storage()
+            imageView.sd_setImage(with: storage.reference().child(newInfo.filename),
+                                  placeholderImage: UIImage(named: "Downloading"))
         }
     }
 }

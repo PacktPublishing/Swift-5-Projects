@@ -53,7 +53,6 @@
 		49A4580B2264EA8E007B322B /* SocialPhotoAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SocialPhotoAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A4580D2264EA8E007B322B /* SocialPhotoAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialPhotoAppTests.swift; sourceTree = "<group>"; };
 		49A4580F2264EA8E007B322B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		49A458152264F1D7007B322B /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = ../README; sourceTree = "<group>"; };
 		49A458162264F5BC007B322B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		72E19C683C8B24301FDD4EAC /* Pods-SocialPhotoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-SocialPhotoAppTests/Pods-SocialPhotoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8DF8C11017F87B4F9D1E4E87 /* Pods_SocialPhotoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialPhotoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,7 +88,6 @@
 				72E19C683C8B24301FDD4EAC /* Pods-SocialPhotoAppTests.debug.xcconfig */,
 				96E1B76D56C27A6A94C67A5A /* Pods-SocialPhotoAppTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -105,7 +103,6 @@
 		49A4579F225909C6007B322B = {
 			isa = PBXGroup;
 			children = (
-				49A458152264F1D7007B322B /* README */,
 				49A457AA225909C6007B322B /* SocialPhotoApp */,
 				49A4580C2264EA8E007B322B /* SocialPhotoAppTests */,
 				49A457A9225909C6007B322B /* Products */,
@@ -334,6 +331,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -347,6 +345,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",

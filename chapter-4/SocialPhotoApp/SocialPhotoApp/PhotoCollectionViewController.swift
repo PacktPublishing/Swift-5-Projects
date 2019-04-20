@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import FirebaseUI
 
 private let reuseIdentifier = "PhotoCell"
 
-class PhotoCollectionViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
+class PhotoCollectionViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
 
     let imagePicker = UIImagePickerController()
     let viewModel : PhotoCollectionViewModel = PhotoCollectionViewModel()
     let activityIndicator = UIActivityIndicatorView(style: .gray)
-    
+    var dataSource : FUIFirestoreCollectionViewDataSource!
+
     @IBAction func addFromCamera(_ sender: Any) {
         presentPicker(.camera, delegate: self)
     }
@@ -33,7 +35,7 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
         imagePicker.sourceType = type
         present(imagePicker, animated: true, completion: nil)
     }
-        
+    
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
@@ -44,38 +46,34 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
         self.collectionView.reloadData()
     }
     
+    private func bindToCurrentQuery(activityIndicator: UIActivityIndicatorView?) {
+        
+        let q = viewModel.currentQuery
+        self.dataSource = collectionView.bind(toFirestoreQuery: q) { view, indexPath, snap in
+
+            if let activityIndicator = activityIndicator {
+                activityIndicator.stopAnimating()
+            }
+            let cell = view.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+                                                for: indexPath) as! PhotoCollectionViewCell
+            
+            cell.photoInfo = PhotoInfo(uid: snap.documentID,
+                                       data: snap.data()!)
+            return cell
+        }
+    }
+    
 //////////////////////////////////////////////////////////////
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         checkPhotoLibraryPermission()
-        
+        bindToCurrentQuery(activityIndicator: nil)
     }
     
 //////////////////////////////////////////////////////////////
 
-    // MARK: UICollectionViewDataSource
-
-    override func collectionView(_ collectionView: UICollectionView,
-                                 numberOfItemsInSection section: Int) -> Int {
-        
-        return viewModel.photoCount()
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        // reuse cell for performance
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
-                                                      for: indexPath) as! PhotoCollectionViewCell
-        
-        // retrieve the photo at the requested index
-        cell.photoInfo = viewModel.photo(index: indexPath[1] + 1)
-        return cell
-    }
-    
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -87,7 +85,6 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
-
     
 //////////////////////////////////////////////////////////////
 
@@ -96,7 +93,7 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
             let vc = segue.destination as? PhotoViewController {
                 vc.photoInfo = photoCell.photoInfo
             vc.callback = { info in
-                update(db: self.viewModel.photoStore, info)
+                self.viewModel.updatePhoto(photo: info)
                 self.collectionView.reloadData()
             }
         }
@@ -107,19 +104,15 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
     // MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
+        let activityIndicator = UIActivityIndicatorView(style: .gray)
         textField.addSubview(activityIndicator)
         activityIndicator.frame = CGRect(x: textField.bounds.size.width - 32,
                                          y: 0, width: 32, height: textField.bounds.size.height)
         activityIndicator.startAnimating()
 
         viewModel.currentTag = textField.text
-        
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            DispatchQueue.main.async {
-                self.activityIndicator.stopAnimating()
-            }
-        }
+        bindToCurrentQuery(activityIndicator: activityIndicator)
+
         return true
     }
 }

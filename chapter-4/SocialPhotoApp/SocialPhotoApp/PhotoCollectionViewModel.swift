@@ -7,57 +7,59 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseFirestore
 
 class PhotoCollectionViewModel {
     
-    var photoStore : OpaquePointer!
-    
-    var currentPhotos : [Int32] = []
+    let db : Firestore
+    let photos : CollectionReference
+    let storage : Storage
+
+    var currentQuery : Query
     var currentTag : String? {
         didSet(value) {
             if let currentTag = currentTag, currentTag != "" {
-                currentPhotos = lookup(db: photoStore, tag: currentTag)
+                self.currentTag = currentTag
+                currentQuery = photos.whereField("tags", arrayContains: currentTag)
             } else {
                 currentTag = nil
-                currentPhotos = []
+                currentQuery = photos
             }
         }
     }
-    
+
     init() {
-        let fileURL = try! FileManager.default.url(for: .documentDirectory,
-                                                   in: .userDomainMask,
-                                                   appropriateFor: nil,
-                                                   create: false)
-            .appendingPathComponent("PhotoStore.sqlite")
-        
-        photoStore = create(store: fileURL)
-        createTable(db: photoStore)
+        FirebaseApp.configure()
+        db = Firestore.firestore()
+        photos = db.collection("photos")
+        storage = Storage.storage()
+        currentQuery = photos
     }
     
-    deinit {
-        close(db: photoStore)
-    }
-    
-    func photoCount() -> Int {
-        if currentTag != nil {
-            return currentPhotos.count
-        }
-        return Int(count(db: photoStore))
-    }
-
-    func photo(index: Int) -> PhotoInfo {
-        var modelIndex = Int32(index)
-        if currentTag != nil {
-            modelIndex = currentPhotos[index - 1]
-        }
-        return lookup(db: photoStore, uid: modelIndex)
-    }
-
     func addPhoto(image: URL) {
-        let filename = copyImage(src: image)
-        let photoInfo = PhotoInfo(uid: 0, filename: filename ?? "none",
-                                  title: "Photo title", description: "", tags: "")
-        insert(db: photoStore, photoInfo)
+        
+        let storageRef = storage.reference().child(image.lastPathComponent)
+        let uploadTask = storageRef.putFile(from: image, metadata: nil) { metadata, error in
+            if let error = error {
+                print("Error while adding photo: \(error)")
+                return
+            }
+            self.db.collection("photos").addDocument(data: [
+                "filename": image.lastPathComponent,
+                "title": "Photo title",
+                "description": "",
+                "tags": []
+                ])
+        }
+        uploadTask.resume()
+    }
+
+    func updatePhoto(photo: PhotoInfo) {
+        self.db.collection("photos").document(photo.uid).updateData([
+            "title": photo.title,
+            "description": photo.description,
+            "tags": photo.tags
+            ])
     }
 }
