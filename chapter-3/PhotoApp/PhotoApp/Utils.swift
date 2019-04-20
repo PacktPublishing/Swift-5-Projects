@@ -37,16 +37,15 @@ func checkPhotoLibraryPermission() {
     }
 }
 
-func copyImage(src: URL) -> String? {
+func copyImage(src image: UIImage, name: String) -> String? {
     
-    let fileURL = URLIntoDocuments(src.lastPathComponent)
-    let image = UIImage(named: src.path)!
+    let fileURL = URLIntoDocuments(name)
     if let data = image.jpegData(compressionQuality:  1.0),
         !FileManager.default.fileExists(atPath: fileURL.path) {
         do {
             try data.write(to: fileURL)
             print("File \(fileURL) copied")
-            return src.lastPathComponent
+            return name
         } catch {
             print("Error copying file:", error)
         }

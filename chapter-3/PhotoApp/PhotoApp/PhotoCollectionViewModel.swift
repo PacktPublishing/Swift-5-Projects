@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class PhotoCollectionViewModel {
     
@@ -49,15 +50,18 @@ class PhotoCollectionViewModel {
     func photo(index: Int) -> PhotoInfo {
         var modelIndex = Int32(index)
         if currentTag != nil {
-            modelIndex = currentPhotos[index]
+            modelIndex = currentPhotos[index - 1]
         }
         return lookup(db: photoStore, uid: modelIndex)
     }
 
-    func addPhoto(image: URL) {
-        let filename = copyImage(src: image)
-        let photoInfo = PhotoInfo(uid: 0, filename: filename ?? "none",
-                                  title: "Photo title", description: "", tags: "")
-        insert(db: photoStore, photoInfo)
+    func addPhoto(image: UIImage) {
+        
+        let name = NSUUID().uuidString
+        if copyImage(src: image, name: name) != nil {
+            let photoInfo = PhotoInfo(uid: 0, filename: name,
+                                      title: "Photo title", description: "", tags: "")
+            insert(db: photoStore, photoInfo)
+        }
     }
 }

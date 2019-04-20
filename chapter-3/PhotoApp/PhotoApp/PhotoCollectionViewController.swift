@@ -10,11 +10,12 @@ import UIKit
 
 private let reuseIdentifier = "PhotoCell"
 
-class PhotoCollectionViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
+class PhotoCollectionViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
 
-    var imagePicker : UIImagePickerController!
+    let imagePicker = UIImagePickerController()
     let viewModel : PhotoCollectionViewModel = PhotoCollectionViewModel()
-
+    let activityIndicator = UIActivityIndicatorView(style: .gray)
+    
     @IBAction func addFromCamera(_ sender: Any) {
         presentPicker(.camera, delegate: self)
     }
@@ -27,7 +28,7 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
 
     private func presentPicker(_ type : UIImagePickerController.SourceType,
                                delegate: UIImagePickerControllerDelegate & UINavigationControllerDelegate) {
-        imagePicker = UIImagePickerController()
+
         imagePicker.delegate = delegate
         imagePicker.sourceType = type
         present(imagePicker, animated: true, completion: nil)
@@ -36,11 +37,12 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        let image = (info[.imageURL] as? URL)
-        viewModel.addPhoto(image: image!)
-        imagePicker.dismiss(animated: true, completion: nil)
-        
-        self.collectionView.reloadData()
+        imagePicker.dismiss(animated: true) {
+            if let image = info[.originalImage] as? UIImage {
+                self.viewModel.addPhoto(image: image)
+                self.collectionView.reloadData()
+            }
+        }
     }
     
 //////////////////////////////////////////////////////////////
@@ -90,20 +92,35 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
     
 //////////////////////////////////////////////////////////////
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let photoCell = sender as? PhotoCollectionViewCell,
+            let vc = segue.destination as? PhotoViewController {
+                vc.photoInfo = photoCell.photoInfo
+            vc.callback = { info in
+                update(db: self.viewModel.photoStore, info)
+                self.collectionView.reloadData()
+            }
+        }
+    }
+
+//////////////////////////////////////////////////////////////
+
     // MARK: UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
         textField.addSubview(activityIndicator)
         activityIndicator.frame = CGRect(x: textField.bounds.size.width - 32,
                                          y: 0, width: 32, height: textField.bounds.size.height)
         activityIndicator.startAnimating()
 
         viewModel.currentTag = textField.text
-        self.collectionView.reloadData()
-
-        textField.text = nil
-        textField.resignFirstResponder()
+        
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+            }
+        }
         return true
     }
 }
