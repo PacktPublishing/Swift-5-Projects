@@ -8,6 +8,7 @@
 
 import Foundation
 import Photos
+import Firebase
 
 func URLIntoDocuments(_ component: String) -> URL {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory,
@@ -52,4 +53,32 @@ func copyImage(src: URL) -> String? {
         }
     }
     return nil
+}
+
+func removeImage(filename: String) {
+    let fileURL = URLIntoDocuments(filename)
+    if FileManager.default.fileExists(atPath: fileURL.path) {
+        try? FileManager.default.removeItem(at: fileURL)
+    }
+}
+
+func placeholderImage(filename: String) -> UIImage? {
+    let fileURL = URLIntoDocuments(filename)
+    if FileManager.default.fileExists(atPath: fileURL.path),
+        let placeholder = UIImage(contentsOfFile: URLIntoDocuments(filename).path) {
+        return  placeholder
+    }
+    return UIImage(named: "Downloading")
+}
+
+extension UIImageView {
+    
+    func setImage(storageChild: String) {
+        let storage = Storage.storage()
+        let placeholder = placeholderImage(filename: storageChild)
+        self.sd_setImage(with: storage.reference().child(storageChild),
+                              placeholderImage: placeholder) { (image, error, type, url) in
+                                removeImage(filename: storageChild)
+        }
+    }
 }

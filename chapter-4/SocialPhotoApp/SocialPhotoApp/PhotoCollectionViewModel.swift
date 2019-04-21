@@ -39,6 +39,9 @@ class PhotoCollectionViewModel {
     
     func addPhoto(image: URL) {
         
+        // copy image so we can use it as a placeholder
+        let filename = copyImage(src: image)
+
         let storageRef = storage.reference().child(image.lastPathComponent)
         let uploadTask = storageRef.putFile(from: image, metadata: nil) { metadata, error in
             if let error = error {

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class PhotoCollectionViewCell: UICollectionViewCell {
     
@@ -15,9 +14,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
 
     var photoInfo = PhotoInfo() {
         willSet(newInfo) {
-            let storage = Storage.storage()
-            imageView.sd_setImage(with: storage.reference().child(newInfo.filename),
-                                  placeholderImage: UIImage(named: "Downloading"))
+            imageView.setImage(storageChild: newInfo.filename)
         }
     }
 }

@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseUI
 
 class PhotoViewController: UIViewController {
 
@@ -26,9 +24,7 @@ class PhotoViewController: UIViewController {
         descriptionView.layer.borderWidth = 1.0
         descriptionView.layer.borderColor = UIColor(white: 0.2, alpha: 0.15).cgColor
 
-        let storage = Storage.storage()
-        imageView.sd_setImage(with: storage.reference().child(photoInfo.filename),
-                              placeholderImage: UIImage(named: "Downloading"))
+        imageView.setImage(storageChild: photoInfo.filename)
 
         titleView.text = photoInfo.title
         descriptionView.text = photoInfo.description
