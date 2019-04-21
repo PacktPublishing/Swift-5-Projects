@@ -65,4 +65,9 @@ class PhotoCollectionViewModel {
             "tags": photo.tags
             ])
     }
+    
+    func removePhoto(photo: PhotoInfo) {
+        self.db.collection("photos").document(photo.uid).delete()
+    }
+
 }

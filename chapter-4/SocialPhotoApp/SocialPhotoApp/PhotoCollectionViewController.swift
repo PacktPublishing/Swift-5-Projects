@@ -11,7 +11,7 @@ import FirebaseUI
 
 private let reuseIdentifier = "PhotoCell"
 
-class PhotoCollectionViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class PhotoCollectionViewController: UICollectionViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate, UIGestureRecognizerDelegate {
 
     let imagePicker = UIImagePickerController()
     let viewModel : PhotoCollectionViewModel = PhotoCollectionViewModel()
@@ -70,6 +70,14 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
 
         checkPhotoLibraryPermission()
         bindToCurrentQuery(activityIndicator: nil)
+        
+        let longPress = UILongPressGestureRecognizer(target: self,
+                                                     action: #selector(self.handleLongPress))
+        longPress.delegate = self;
+        longPress.delaysTouchesBegan = true;
+        longPress.minimumPressDuration = 1;
+//        longPress.numberOfTouchesRequired = 2;
+        self.collectionView.addGestureRecognizer(longPress)
     }
     
 //////////////////////////////////////////////////////////////
@@ -114,5 +122,17 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
         bindToCurrentQuery(activityIndicator: activityIndicator)
 
         return true
+    }
+
+    @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
+
+        let p = gesture.location(in: self.collectionView)
+        if let indexPath = self.collectionView.indexPathForItem(at: p) {
+            let cell = self.collectionView.cellForItem(at: indexPath) as! PhotoCollectionViewCell
+            viewModel.removePhoto(photo: cell.photoInfo)
+        } else {
+            print("couldn't find index path")
+        }
+        gesture.state = .ended
     }
 }
