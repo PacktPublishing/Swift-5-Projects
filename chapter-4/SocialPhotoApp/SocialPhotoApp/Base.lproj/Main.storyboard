@@ -103,10 +103,60 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="oM7-77-C2F" kind="relationship" relationship="rootViewController" id="h2x-ed-6aD"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="amg-ks-RDZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-663" y="973"/>
+        </scene>
+        <!--Photo Profile View Controller-->
+        <scene sceneID="7pa-VD-gfk">
+            <objects>
+                <viewController id="oM7-77-C2F" customClass="PhotoProfileViewController" customModule="SocialPhotoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lbp-r5-VQw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You are currently logged in as:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbn-Vn-egr">
+                                <rect key="frame" x="71.5" y="323" width="232" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3c7-35-R7j">
+                                <rect key="frame" x="148" y="352" width="79" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3c7-35-R7j" firstAttribute="centerX" secondItem="rbn-Vn-egr" secondAttribute="centerX" id="2kZ-2T-nvF"/>
+                            <constraint firstItem="3c7-35-R7j" firstAttribute="top" secondItem="rbn-Vn-egr" secondAttribute="bottom" constant="8" id="CXz-7f-mIw"/>
+                            <constraint firstItem="rbn-Vn-egr" firstAttribute="centerX" secondItem="Lbp-r5-VQw" secondAttribute="centerX" id="F3X-ig-LqM"/>
+                            <constraint firstItem="rbn-Vn-egr" firstAttribute="centerY" secondItem="Lbp-r5-VQw" secondAttribute="centerY" id="PFo-jD-7bT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nF3-zn-5hn"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="CfK-dR-sQk">
+                        <barButtonItem key="rightBarButtonItem" title="Sign out" id="ze6-t3-Yp1">
+                            <connections>
+                                <action selector="onSignInOut:" destination="oM7-77-C2F" id="Aa2-2P-qHR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="signInOutButton" destination="ze6-t3-Yp1" id="8H1-dg-cDa"/>
+                        <outlet property="signedInUserLabel" destination="3c7-35-R7j" id="VNF-C0-uvd"/>
+                        <outlet property="signedStatusLabel" destination="rbn-Vn-egr" id="iz1-LV-Jqb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iUB-QX-5qW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="185" y="973"/>
         </scene>
         <!--Photo View Controller-->
         <scene sceneID="bxO-vE-l8c">
@@ -244,6 +294,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="SVg-du-n0P" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="N0k-Q9-ewr">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

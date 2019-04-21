@@ -67,7 +67,7 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         checkPhotoLibraryPermission()
         bindToCurrentQuery(activityIndicator: nil)
         
@@ -81,7 +81,8 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
     }
     
 //////////////////////////////////////////////////////////////
-
+    
+    // MARK: UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -123,6 +124,8 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
 
         return true
     }
+
+//////////////////////////////////////////////////////////////
 
     @objc func handleLongPress(gesture : UILongPressGestureRecognizer!) {
 

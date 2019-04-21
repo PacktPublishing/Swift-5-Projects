@@ -36,6 +36,7 @@ class PhotoViewController: UIViewController {
         
         if self.isMovingFromParent {
             photoInfo = PhotoInfo(uid: photoInfo.uid,
+                                  userId: photoInfo.userId,
                                   filename: photoInfo.filename,
                                   title: titleView.text ?? "Image title goes here",
                                   description: descriptionView.text ?? "",

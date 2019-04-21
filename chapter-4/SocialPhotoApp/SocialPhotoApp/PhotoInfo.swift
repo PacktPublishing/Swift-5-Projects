@@ -12,6 +12,7 @@ import Firebase
 
 struct PhotoInfo {
     let uid: String
+    let userId: String
     let filename: String
     let title: String
     let description: String
@@ -21,9 +22,10 @@ struct PhotoInfo {
         return (s as? String)?.components(separatedBy: CharacterSet(charactersIn: ",")) ?? []
     }
 
-    init(uid: String, filename: String, title: String, description: String, tags: [String]) {
+    init(uid: String, userId: String, filename: String, title: String, description: String, tags: [String]) {
         
         self.uid = uid
+        self.userId = userId
         self.filename = filename
         self.title = title
         self.description = description
@@ -33,6 +35,7 @@ struct PhotoInfo {
     init(uid: String = "", data: [String : Any] = [:]) {
         
         self.init(uid: uid,
+                  userId: data["userId"] as? String ?? "NoUser",
                   filename: data["filename"] as? String ?? "",
                   title: data["title"] as? String ?? "",
                   description: data["description"] as? String ?? "",

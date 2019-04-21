@@ -7,14 +7,12 @@ target 'SocialPhotoApp' do
     pod 'Firebase/Core'
     pod 'Firebase/Firestore'
     pod 'Firebase/Storage'
-    pod 'FirebaseUI/Firestore', '~> 5.0'
-    pod 'FirebaseUI/Storage', '~> 5.0'
+    pod 'Firebase/Auth'
+    pod 'FirebaseUI/Firestore'
+    pod 'FirebaseUI/Storage'
+    pod 'FirebaseUI/Auth'
+    pod 'FirebaseUI/Google'
 
   # Pods for SocialPhotoApp
-
-  target 'SocialPhotoAppTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 
 end
