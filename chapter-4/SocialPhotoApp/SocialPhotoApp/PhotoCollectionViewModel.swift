@@ -16,28 +16,38 @@ class PhotoCollectionViewModel {
     let photos : CollectionReference
     let storage : Storage
 
-    fileprivate static func userQuery(_ photos : CollectionReference) -> Query {
-        return photos.whereField("userId", isEqualTo: Auth.auth().currentUser?.uid ?? "NoUser")
+    static func userQuery() -> (CollectionReference) -> Query {
+        return { (_ c : CollectionReference) -> Query in
+            return c.whereField("userId", isEqualTo: Auth.auth().currentUser?.uid ?? "NoUser")
+        }
     }
     
+    static func publicQuery() -> (CollectionReference) -> Query {
+        return { (_ c : CollectionReference) -> Query in
+            return c.whereField("status", isEqualTo: "public")
+        }
+    }
+    
+    var baseQuery : Query
     var currentQuery : Query
     var currentTag : String? {
         didSet(value) {
             if let currentTag = currentTag, currentTag != "" {
                 self.currentTag = currentTag
-                currentQuery = PhotoCollectionViewModel.userQuery(photos).whereField("tags", arrayContains: currentTag)
+                currentQuery = baseQuery.whereField("tags", arrayContains: currentTag)
             } else {
                 currentTag = nil
-                currentQuery = PhotoCollectionViewModel.userQuery(photos)
+                currentQuery = baseQuery
             }
         }
     }
 
-    init() {
+    init(query: (CollectionReference) -> Query) {
         db = Firestore.firestore()
         photos = db.collection("photos")
         storage = Storage.storage()
-        currentQuery = PhotoCollectionViewModel.userQuery(photos)
+        baseQuery = query(photos)
+        currentQuery = baseQuery
     }
     
     func addPhoto(image: URL) {

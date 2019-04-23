@@ -25,7 +25,7 @@ class PhotoViewController: UIViewController {
     var callback : ((_ : PhotoInfo) -> Void)?
     
     fileprivate var authStateDidChangeHandle: AuthStateDidChangeListenerHandle?
-    fileprivate weak var auth = Auth.auth()
+    fileprivate var auth = Auth.auth()
 
     fileprivate var isShared = false
     
@@ -54,17 +54,17 @@ class PhotoViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.authStateDidChangeHandle =
-            auth?.addStateDidChangeListener(self.updateUI(auth:user:))
+            auth.addStateDidChangeListener(self.updateUI(auth:user:))
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         if let handle = self.authStateDidChangeHandle {
-            auth?.removeStateDidChangeListener(handle)
+            auth.removeStateDidChangeListener(handle)
         }
 
-        if self.isMovingFromParent {
+        if self.isMovingFromParent && photoInfo.userId == auth.currentUser?.uid {
             photoInfo = PhotoInfo(uid: photoInfo.uid,
                                   userId: photoInfo.userId,
                                   filename: photoInfo.filename,
@@ -79,10 +79,16 @@ class PhotoViewController: UIViewController {
     }
 
     func updateUI(auth: Auth, user: User?) {
-        if auth.currentUser != nil {
+        if photoInfo.userId == auth.currentUser?.uid {
             shareButton?.isEnabled = true
+            titleView.isUserInteractionEnabled = true
+            tagView.isUserInteractionEnabled = true
+            descriptionView.isUserInteractionEnabled = true
         } else {
             shareButton?.isEnabled = false
+            titleView.isUserInteractionEnabled = false
+            tagView.isUserInteractionEnabled = false
+            descriptionView.isUserInteractionEnabled = false
         }
     }
 

@@ -57,7 +57,7 @@ struct PhotoInfo {
                   filename: data["filename"] as? String ?? "",
                   title: data["title"] as? String ?? "",
                   description: data["description"] as? String ?? "",
-                  status: (data["satus"] as? String == "public") ? .Public : .Private,
+                  status: (data["status"] as? String == "public") ? .Public : .Private,
                   tags: data["tags"] as? [String] ?? PhotoInfo.makeTags(data["tags"]))
     }
 

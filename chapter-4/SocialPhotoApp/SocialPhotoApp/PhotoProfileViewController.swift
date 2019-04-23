@@ -68,37 +68,40 @@ class PhotoProfileViewController: UIViewController, FUIAuthDelegate {
     }
     
     /////////////////////////////////////////////////////////
-    
+    // This is called when the user changes their sign-in state
     func updateUI(auth: Auth, user: User?) {
         
         if let user = self.auth.currentUser {
             
             if !user.isAnonymous {
                 signedStatusLabel.text = "You are currently signed in as:"
-                signedInUserLabel.text = user.displayName
+                signedInUserLabel.text = "\(user.displayName ?? "Unknown") (\(user.uid))"
                 signInOutButton.title = "Sign out"
             
             } else {
 
                 signedStatusLabel.text = "You are not currently signed in."
-                signedInUserLabel.text = "(Anonynous user)"
+                signedInUserLabel.text = "(Anonynous user: \(user.uid)"
                 signInOutButton.title = "Sign in"
             }
+            
         } else {
             
             attemptSignIn()
         }
     }
     
+    // This is called when the user signs in or taps Cancel
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
         
         if error == nil {
-            // jump to first tab after successful sign in
+            // signed-in: jump to first tab after successful sign in
             self.tabBarController?.selectedIndex = 0
         } else {
+            // not signed-in: attempt anonymous login
             auth.signInAnonymously() { (authResult, error) in
                 if error == nil {
-                    // jump to first tab after successful sign in
+                    // jump to first tab
                     self.tabBarController?.selectedIndex = 0
                 }
             }

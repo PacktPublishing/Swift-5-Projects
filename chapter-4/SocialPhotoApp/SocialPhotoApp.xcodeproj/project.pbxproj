@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		49A457AC225909C6007B322B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A457AB225909C6007B322B /* AppDelegate.swift */; };
-		49A457AE225909C6007B322B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A457AD225909C6007B322B /* ViewController.swift */; };
 		49A457B1225909C6007B322B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A457AF225909C6007B322B /* Main.storyboard */; };
 		49A457B3225909C8007B322B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49A457B2225909C8007B322B /* Assets.xcassets */; };
 		49A457B6225909C8007B322B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A457B4225909C8007B322B /* LaunchScreen.storyboard */; };
@@ -21,6 +20,8 @@
 		49A4580E2264EA8E007B322B /* SocialPhotoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A4580D2264EA8E007B322B /* SocialPhotoAppTests.swift */; };
 		49A458172264F5BC007B322B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 49A458162264F5BC007B322B /* GoogleService-Info.plist */; };
 		49B6F9CD226DDBD7007D6274 /* PhotoProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B6F9CC226DDBD7007D6274 /* PhotoProfileViewController.swift */; };
+		49B6F9D1226F54FD007D6274 /* LocalPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B6F9D0226F54FD007D6274 /* LocalPhotoCollectionViewController.swift */; };
+		49B6F9D3226F5549007D6274 /* SharedPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B6F9D2226F5549007D6274 /* SharedPhotoCollectionViewController.swift */; };
 		72816D726C0D9F6721DA41FD /* Pods_SocialPhotoAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0105A206BBC1F8094468D9C6 /* Pods_SocialPhotoAppTests.framework */; };
 		7CE411ED862B5E9DC37BA8EB /* Pods_SocialPhotoApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DF8C11017F87B4F9D1E4E87 /* Pods_SocialPhotoApp.framework */; };
 /* End PBXBuildFile section */
@@ -40,7 +41,6 @@
 		2A12D3719C53CF67CA7982E4 /* Pods-SocialPhotoApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoApp.debug.xcconfig"; path = "Target Support Files/Pods-SocialPhotoApp/Pods-SocialPhotoApp.debug.xcconfig"; sourceTree = "<group>"; };
 		49A457A8225909C6007B322B /* SocialPhotoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocialPhotoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A457AB225909C6007B322B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		49A457AD225909C6007B322B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		49A457B0225909C6007B322B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		49A457B2225909C8007B322B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		49A457B5225909C8007B322B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,6 +56,8 @@
 		49A4580F2264EA8E007B322B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49A458162264F5BC007B322B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		49B6F9CC226DDBD7007D6274 /* PhotoProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoProfileViewController.swift; sourceTree = "<group>"; };
+		49B6F9D0226F54FD007D6274 /* LocalPhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalPhotoCollectionViewController.swift; sourceTree = "<group>"; };
+		49B6F9D2226F5549007D6274 /* SharedPhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedPhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		72E19C683C8B24301FDD4EAC /* Pods-SocialPhotoAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoAppTests.debug.xcconfig"; path = "Target Support Files/Pods-SocialPhotoAppTests/Pods-SocialPhotoAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8DF8C11017F87B4F9D1E4E87 /* Pods_SocialPhotoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SocialPhotoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96E1B76D56C27A6A94C67A5A /* Pods-SocialPhotoAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocialPhotoAppTests.release.xcconfig"; path = "Target Support Files/Pods-SocialPhotoAppTests/Pods-SocialPhotoAppTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -133,12 +135,13 @@
 				49A457BD22590BDA007B322B /* PhotoInfo.swift */,
 				49A457BE22590BDA007B322B /* Utils.swift */,
 				49A457AB225909C6007B322B /* AppDelegate.swift */,
-				49A457AD225909C6007B322B /* ViewController.swift */,
 				49A457AF225909C6007B322B /* Main.storyboard */,
 				49A457B2225909C8007B322B /* Assets.xcassets */,
 				49A457B4225909C8007B322B /* LaunchScreen.storyboard */,
 				49A457B7225909C8007B322B /* Info.plist */,
 				49A458162264F5BC007B322B /* GoogleService-Info.plist */,
+				49B6F9D0226F54FD007D6274 /* LocalPhotoCollectionViewController.swift */,
+				49B6F9D2226F5549007D6274 /* SharedPhotoCollectionViewController.swift */,
 			);
 			path = SocialPhotoApp;
 			sourceTree = "<group>";
@@ -397,10 +400,11 @@
 				49A457BF22590BDA007B322B /* PhotoInfo.swift in Sources */,
 				49A457DF22590E20007B322B /* PhotoCollectionViewCell.swift in Sources */,
 				49A457E222590EF7007B322B /* PhotoCollectionViewController.swift in Sources */,
+				49B6F9D3226F5549007D6274 /* SharedPhotoCollectionViewController.swift in Sources */,
 				49B6F9CD226DDBD7007D6274 /* PhotoProfileViewController.swift in Sources */,
 				49A457E422593659007B322B /* PhotoCollectionViewModel.swift in Sources */,
-				49A457AE225909C6007B322B /* ViewController.swift in Sources */,
 				49A457AC225909C6007B322B /* AppDelegate.swift in Sources */,
+				49B6F9D1226F54FD007D6274 /* LocalPhotoCollectionViewController.swift in Sources */,
 				49A457C022590BDA007B322B /* Utils.swift in Sources */,
 				49A457E022590E20007B322B /* PhotoViewController.swift in Sources */,
 			);

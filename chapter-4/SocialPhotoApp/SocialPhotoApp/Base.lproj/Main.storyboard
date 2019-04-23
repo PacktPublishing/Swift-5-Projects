@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Photo Collection View Controller-->
+        <!--Local Photo Collection View Controller-->
         <scene sceneID="R4Z-kL-6kD">
             <objects>
-                <collectionViewController id="XO9-0Q-8dO" customClass="PhotoCollectionViewController" customModule="SocialPhotoApp" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="XO9-0Q-8dO" customClass="LocalPhotoCollectionViewController" customModule="SocialPhotoApp" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="Vrd-Cq-G9v">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -253,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TRA-J7-bp0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1095.2" y="192.95352323838082"/>
+            <point key="canvasLocation" x="1316" y="-191"/>
         </scene>
         <!--Explore-->
         <scene sceneID="saf-ZP-QaD">
@@ -264,6 +264,9 @@
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="Ac3-BJ-bpz" kind="relationship" relationship="rootViewController" id="krU-dy-V1J"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uHY-q9-itr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -308,6 +311,68 @@
             </objects>
             <point key="canvasLocation" x="-1697" y="193"/>
         </scene>
+        <!--Shared Photo Collection View Controller-->
+        <scene sceneID="Q8s-xr-bgJ">
+            <objects>
+                <collectionViewController id="Ac3-BJ-bpz" userLabel="Shared Photo Collection View Controller" customClass="SharedPhotoCollectionViewController" customModule="SocialPhotoApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="rDG-xx-N2V">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="ZZJ-w0-EMY">
+                            <size key="itemSize" width="120" height="120"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="kOm-mw-WMt" customClass="PhotoCollectionViewCell" customModule="SocialPhotoApp" customModuleProvider="target">
+                                <rect key="frame" x="10" y="10" width="120" height="120"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rkp-D2-ewa">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                        </imageView>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Rkp-D2-ewa" secondAttribute="bottom" id="6nA-lN-wVY"/>
+                                    <constraint firstItem="Rkp-D2-ewa" firstAttribute="top" secondItem="kOm-mw-WMt" secondAttribute="top" id="VgC-cf-ayU"/>
+                                    <constraint firstItem="Rkp-D2-ewa" firstAttribute="leading" secondItem="kOm-mw-WMt" secondAttribute="leading" id="aSj-7W-0Zn"/>
+                                    <constraint firstAttribute="trailing" secondItem="Rkp-D2-ewa" secondAttribute="trailing" id="q3T-pu-sQr"/>
+                                </constraints>
+                                <size key="customSize" width="120" height="120"/>
+                                <connections>
+                                    <outlet property="imageView" destination="Rkp-D2-ewa" id="dOf-nL-UsX"/>
+                                    <segue destination="7fG-dN-7Xu" kind="show" id="aRu-0Y-gzx"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="delegate" destination="Ac3-BJ-bpz" id="VDc-CH-sOD"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="xxp-iS-UCM">
+                        <nil key="title"/>
+                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="MOY-Wr-uHM">
+                            <rect key="frame" x="67" y="7" width="241" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                            <connections>
+                                <outlet property="delegate" destination="Ac3-BJ-bpz" id="Tdb-E9-7ew"/>
+                            </connections>
+                        </textField>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2aa-Su-ZWv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="185" y="-564"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Assets" width="25" height="25"/>
@@ -316,4 +381,7 @@
         <image name="Profile" width="25" height="25"/>
         <image name="Roll" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="gjI-nn-mFk"/>
+    </inferredMetricsTieBreakers>
 </document>
