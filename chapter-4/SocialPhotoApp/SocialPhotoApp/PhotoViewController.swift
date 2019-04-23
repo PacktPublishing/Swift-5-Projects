@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class PhotoViewController: UIViewController {
 
@@ -15,8 +16,18 @@ class PhotoViewController: UIViewController {
     @IBOutlet weak var descriptionView : UITextView!
     @IBOutlet weak var tagView : UITextField!
 
+    var shareButton : UIBarButtonItem?
+    var shareText : String {
+        return isShared ? "Unshare" : "Share"
+    }
+    
     var photoInfo = PhotoInfo()
     var callback : ((_ : PhotoInfo) -> Void)?
+    
+    fileprivate var authStateDidChangeHandle: AuthStateDidChangeListenerHandle?
+    fileprivate weak var auth = Auth.auth()
+
+    fileprivate var isShared = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,17 +40,37 @@ class PhotoViewController: UIViewController {
         titleView.text = photoInfo.title
         descriptionView.text = photoInfo.description
         tagView.text = photoInfo.tags.joined(separator: ",")
+        
+        isShared = (photoInfo.status == .Public)
+        
+        shareButton = UIBarButtonItem(title: shareText,
+                                      style: .plain,
+                                      target: self,
+                                      action: #selector(shareCurrentPhoto(sender:)))
+        self.navigationItem.rightBarButtonItem = shareButton
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.authStateDidChangeHandle =
+            auth?.addStateDidChangeListener(self.updateUI(auth:user:))
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
+        if let handle = self.authStateDidChangeHandle {
+            auth?.removeStateDidChangeListener(handle)
+        }
+
         if self.isMovingFromParent {
             photoInfo = PhotoInfo(uid: photoInfo.uid,
                                   userId: photoInfo.userId,
                                   filename: photoInfo.filename,
                                   title: titleView.text ?? "Image title goes here",
                                   description: descriptionView.text ?? "",
+                                  status: PhotoInfo.makeStatus(isShared),
                                   tags: PhotoInfo.makeTags(tagView.text))
             if let callback = callback {
                 callback(photoInfo)
@@ -47,4 +78,17 @@ class PhotoViewController: UIViewController {
         }
     }
 
+    func updateUI(auth: Auth, user: User?) {
+        if auth.currentUser != nil {
+            shareButton?.isEnabled = true
+        } else {
+            shareButton?.isEnabled = false
+        }
+    }
+
+    @objc private func shareCurrentPhoto(sender: Any) {
+        isShared = !isShared
+        shareButton?.title = shareText
+    }
+    
 }

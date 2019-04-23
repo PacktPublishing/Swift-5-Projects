@@ -34,7 +34,6 @@ class PhotoCollectionViewModel {
     }
 
     init() {
-        FirebaseApp.configure()
         db = Firestore.firestore()
         photos = db.collection("photos")
         storage = Storage.storage()
@@ -57,6 +56,7 @@ class PhotoCollectionViewModel {
                 "filename": image.lastPathComponent,
                 "title": "Photo title",
                 "description": "",
+                "status": "private",
                 "tags": []
                 ])
         }
@@ -67,6 +67,7 @@ class PhotoCollectionViewModel {
         self.db.collection("photos").document(photo.uid).updateData([
             "title": photo.title,
             "description": photo.description,
+            "status": (photo.status == .Public) ? "public" : "private",
             "tags": photo.tags
             ])
     }
