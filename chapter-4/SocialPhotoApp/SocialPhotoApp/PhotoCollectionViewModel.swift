@@ -44,6 +44,10 @@ class PhotoCollectionViewModel {
 
     init(query: (CollectionReference) -> Query) {
         db = Firestore.firestore()
+        let settings = db.settings
+        settings.areTimestampsInSnapshotsEnabled = true
+        db.settings = settings
+
         photos = db.collection("photos")
         storage = Storage.storage()
         baseQuery = query(photos)

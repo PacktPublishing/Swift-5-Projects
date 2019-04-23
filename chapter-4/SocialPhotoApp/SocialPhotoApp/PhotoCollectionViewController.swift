@@ -12,7 +12,7 @@ import FirebaseUI
 private let reuseIdentifier = "PhotoCell"
 
 
-class PhotoCollectionViewController: UICollectionViewController, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate {
+class PhotoCollectionViewController: UICollectionViewController {
 
     var viewModel : PhotoCollectionViewModel!
 
@@ -35,18 +35,10 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
             return cell
         }
     }
-    
-//////////////////////////////////////////////////////////////
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        bindToCurrentQuery(activityIndicator: nil)
-    }
-    
-//////////////////////////////////////////////////////////////
-    
-    // MARK: UICollectionViewDelegate
+extension PhotoCollectionViewController : UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -58,8 +50,9 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
-    
-//////////////////////////////////////////////////////////////
+}
+
+extension PhotoCollectionViewController : UINavigationControllerDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let photoCell = sender as? PhotoCollectionViewCell,
@@ -71,10 +64,10 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
             }
         }
     }
+}
 
-//////////////////////////////////////////////////////////////
-
-    // MARK: UITextFieldDelegate
+extension PhotoCollectionViewController : UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
         let activityIndicator = UIActivityIndicatorView(style: .gray)

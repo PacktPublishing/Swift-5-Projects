@@ -14,5 +14,6 @@ class SharedPhotoCollectionViewController: PhotoCollectionViewController {
 
         viewModel = PhotoCollectionViewModel(query: PhotoCollectionViewModel.publicQuery())
         super.viewDidLoad()
+        bindToCurrentQuery(activityIndicator: nil)
     }
 }

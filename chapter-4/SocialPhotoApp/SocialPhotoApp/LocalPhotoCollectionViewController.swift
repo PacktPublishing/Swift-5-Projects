@@ -72,17 +72,21 @@ class LocalPhotoCollectionViewController: PhotoCollectionViewController {
         //        longPress.numberOfTouchesRequired = 2;
 
         checkPhotoLibraryPermission()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
         
+        super.viewWillAppear(animated)
         self.authStateDidChangeHandle =
             self.auth.addStateDidChangeListener(self.updateUI(auth:user:))
     }
     
-    deinit {
+    override func viewWillDisappear(_ animated: Bool) {
         if let handle = self.authStateDidChangeHandle {
             self.auth.removeStateDidChangeListener(handle)
         }
     }
-    
+
     /////////////////////////////////////////////////////////
     // This is called when the user changes their sign-in state
     func updateUI(auth: Auth, user: User?) {
