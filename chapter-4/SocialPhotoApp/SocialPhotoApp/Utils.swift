@@ -38,16 +38,15 @@ func checkPhotoLibraryPermission() {
     }
 }
 
-func copyImage(src: URL) -> String? {
+func copyImage(src image: UIImage, name: String) -> URL? {
     
-    let fileURL = URLIntoDocuments(src.lastPathComponent)
-    let image = UIImage(named: src.path)!
+    let fileURL = URLIntoDocuments(name)
     if let data = image.jpegData(compressionQuality:  1.0),
         !FileManager.default.fileExists(atPath: fileURL.path) {
         do {
             try data.write(to: fileURL)
             print("File \(fileURL) copied")
-            return src.lastPathComponent
+            return fileURL
         } catch {
             print("Error copying file:", error)
         }
@@ -76,9 +75,9 @@ extension UIImageView {
     func setImage(storageChild: String) {
         let storage = Storage.storage()
         let placeholder = placeholderImage(filename: storageChild)
+        print("Trying to download placeholder \(storageChild)")
         self.sd_setImage(with: storage.reference().child(storageChild),
                               placeholderImage: placeholder) { (image, error, type, url) in
-                                removeImage(filename: storageChild)
         }
     }
 }

@@ -15,20 +15,29 @@ class PhotoViewController: UIViewController {
     @IBOutlet weak var titleView : UITextField!
     @IBOutlet weak var descriptionView : UITextView!
     @IBOutlet weak var tagView : UITextField!
+    @IBOutlet weak var likeCountLabel: UILabel!
+    
+    fileprivate var isShared = false
+    fileprivate var isLiked : Bool {
+        return photoInfo.likes.contains(auth.currentUser?.uid ?? "")
+    }
 
     var shareButton : UIBarButtonItem?
     var shareText : String {
         return isShared ? "Unshare" : "Share"
     }
     
+    var likeButton : UIBarButtonItem?
+    var likeText : String {
+        return isLiked ? "Unlike" : "Like"
+    }
+
     var photoInfo = PhotoInfo()
     var callback : ((_ : PhotoInfo) -> Void)?
     
     fileprivate var authStateDidChangeHandle: AuthStateDidChangeListenerHandle?
     fileprivate var auth = Auth.auth()
 
-    fileprivate var isShared = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,12 +51,17 @@ class PhotoViewController: UIViewController {
         tagView.text = photoInfo.tags.joined(separator: ",")
         
         isShared = (photoInfo.status == .Public)
-        
+        likeButton = UIBarButtonItem(title: likeText,
+                                      style: .plain,
+                                      target: self,
+                                      action: #selector(likeCurrentPhoto(sender:)))
         shareButton = UIBarButtonItem(title: shareText,
                                       style: .plain,
                                       target: self,
                                       action: #selector(shareCurrentPhoto(sender:)))
-        self.navigationItem.rightBarButtonItem = shareButton
+        
+        likeCountLabel.text = "\(photoInfo.likes.count) 👍🏻"
+        self.navigationItem.rightBarButtonItems = [likeButton!, shareButton!]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,7 +85,8 @@ class PhotoViewController: UIViewController {
                                   title: titleView.text ?? "Image title goes here",
                                   description: descriptionView.text ?? "",
                                   status: PhotoInfo.makeStatus(isShared),
-                                  tags: PhotoInfo.makeTags(tagView.text))
+                                  tags: PhotoInfo.makeTags(tagView.text),
+                                  likes: photoInfo.likes)
             if let callback = callback {
                 callback(photoInfo)
             }
@@ -81,11 +96,13 @@ class PhotoViewController: UIViewController {
     func updateUI(auth: Auth, user: User?) {
         if photoInfo.userId == auth.currentUser?.uid {
             shareButton?.isEnabled = true
+            likeButton?.isEnabled = false
             titleView.isUserInteractionEnabled = true
             tagView.isUserInteractionEnabled = true
             descriptionView.isUserInteractionEnabled = true
         } else {
             shareButton?.isEnabled = false
+            likeButton?.isEnabled = true
             titleView.isUserInteractionEnabled = false
             tagView.isUserInteractionEnabled = false
             descriptionView.isUserInteractionEnabled = false
@@ -97,4 +114,13 @@ class PhotoViewController: UIViewController {
         shareButton?.title = shareText
     }
     
+    @objc private func likeCurrentPhoto(sender: Any) {
+        if (isLiked) {
+            photoInfo.likes = photoInfo.likes.filter { str in str != auth.currentUser!.uid }
+        } else {
+            photoInfo.likes.append(auth.currentUser!.uid)
+        }
+        likeButton?.title = likeText
+        likeCountLabel.text = "\(photoInfo.likes.count) 👍🏻"
+    }
 }

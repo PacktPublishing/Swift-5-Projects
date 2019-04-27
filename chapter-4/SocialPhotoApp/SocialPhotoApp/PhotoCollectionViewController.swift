@@ -19,9 +19,7 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
     let activityIndicator = UIActivityIndicatorView(style: .gray)
     var dataSource : FUIFirestoreCollectionViewDataSource!
     
-//////////////////////////////////////////////////////////////
-
-    private func bindToCurrentQuery(activityIndicator: UIActivityIndicatorView?) {
+    func bindToCurrentQuery(activityIndicator: UIActivityIndicatorView?) {
         
         let q = viewModel.currentQuery
         self.dataSource = collectionView.bind(toFirestoreQuery: q) { view, indexPath, snap in
@@ -69,7 +67,7 @@ class PhotoCollectionViewController: UICollectionViewController, UINavigationCon
                 vc.photoInfo = photoCell.photoInfo
             vc.callback = { info in
                 self.viewModel.updatePhoto(photo: info)
-                self.collectionView.reloadData()
+                //self.collectionView.reloadData()
             }
         }
     }

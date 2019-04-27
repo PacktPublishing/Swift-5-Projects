@@ -24,7 +24,7 @@ class PhotoCollectionViewModel {
     
     static func publicQuery() -> (CollectionReference) -> Query {
         return { (_ c : CollectionReference) -> Query in
-            return c.whereField("status", isEqualTo: "public")
+            return c.whereField("status", isEqualTo: PhotoStatus.Public.rawValue)
         }
     }
     
@@ -50,36 +50,34 @@ class PhotoCollectionViewModel {
         currentQuery = baseQuery
     }
     
-    func addPhoto(image: URL) {
+    func addPhoto(image: UIImage) {
         
         // copy image so we can use it as a placeholder
-        let _ = copyImage(src: image)
-
-        let storageRef = storage.reference().child(image.lastPathComponent)
-        let uploadTask = storageRef.putFile(from: image, metadata: nil) { metadata, error in
-            if let error = error {
-                print("Error while adding photo: \(error)")
-                return
+        let name = NSUUID().uuidString
+        if let imageUrl = copyImage(src: image, name: name) {
+            self.db.collection("photos").addDocument(data:
+                PhotoInfo(uid: "",
+                          userId: Auth.auth().currentUser?.uid ?? "NoUser",
+                          filename: name,
+                          title: "Photo title",
+                          description: "",
+                          status: .Private,
+                          tags: [],
+                          likes: []).asDictionary())
+            let storageRef = storage.reference().child(name)
+            let uploadTask = storageRef.putFile(from: imageUrl, metadata: nil) { metadata, error in
+                if let error = error {
+                    print("Error while adding photo: \(error)")
+                    return
+                }
             }
-            self.db.collection("photos").addDocument(data: [
-                "userId": Auth.auth().currentUser?.uid ?? "NoUser",
-                "filename": image.lastPathComponent,
-                "title": "Photo title",
-                "description": "",
-                "status": "private",
-                "tags": []
-                ])
+            uploadTask.resume()
         }
-        uploadTask.resume()
     }
-
+    
     func updatePhoto(photo: PhotoInfo) {
-        self.db.collection("photos").document(photo.uid).updateData([
-            "title": photo.title,
-            "description": photo.description,
-            "status": (photo.status == .Public) ? "public" : "private",
-            "tags": photo.tags
-            ])
+        self.db.collection("photos").document(photo.uid).updateData(photo.asDictionary(forKeys:
+            ["title", "description", "status", "tags", "likes"]))
     }
     
     func removePhoto(photo: PhotoInfo) {

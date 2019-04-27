@@ -7,12 +7,10 @@
 //
 
 import Foundation
-import SQLite3
-import Firebase
 
-enum PhotoStatus {
-    case Public
-    case Private
+enum PhotoStatus : String {
+    case Public = "public"
+    case Private = "private"
 }
 
 struct PhotoInfo {
@@ -23,6 +21,7 @@ struct PhotoInfo {
     let description: String
     let status : PhotoStatus
     let tags: [String]
+    var likes: [String]
     
     static func makeStatus(_ s: Any?) -> PhotoStatus {
         return (s as? String == "public" || s as? Bool == true) ? .Public : .Private
@@ -39,7 +38,8 @@ struct PhotoInfo {
          title: String,
          description: String,
          status: PhotoStatus,
-         tags: [String]) {
+         tags: [String],
+         likes: [String]) {
         
         self.uid = uid
         self.userId = userId
@@ -48,6 +48,7 @@ struct PhotoInfo {
         self.description = description
         self.status = status
         self.tags = tags
+        self.likes = likes
     }
 
     init(uid: String = "", data: [String : Any] = [:]) {
@@ -57,8 +58,23 @@ struct PhotoInfo {
                   filename: data["filename"] as? String ?? "",
                   title: data["title"] as? String ?? "",
                   description: data["description"] as? String ?? "",
-                  status: (data["status"] as? String == "public") ? .Public : .Private,
-                  tags: data["tags"] as? [String] ?? PhotoInfo.makeTags(data["tags"]))
+                  status: PhotoInfo.makeStatus(data["status"]),
+                  tags: data["tags"] as? [String] ?? PhotoInfo.makeTags(data["tags"]),
+                  likes: data["likes"] as? [String] ?? [])
     }
 
+    func asDictionary(forKeys: [String] = []) -> [String : Any] {
+        let mirror = Mirror(reflecting: self)
+        return Dictionary(uniqueKeysWithValues:
+            mirror.children.lazy.map({ (key: String?, value: Any) -> (String, Any)? in
+                guard let key = key else { return nil }
+                if let value = value as? PhotoStatus {
+                    return (key, value.rawValue)
+                }
+                return (key, value)
+            }).compactMap{ $0 }).filter { (tuple) -> Bool in
+                let (key, _) = tuple
+                return (forKeys.count == 0 && key != "uid") || forKeys.contains(key)
+        }
+    }
 }

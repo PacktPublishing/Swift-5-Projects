@@ -170,7 +170,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="07d-Ri-fqu">
-                                        <rect key="frame" x="13" y="13" width="346" height="30"/>
+                                        <rect key="frame" x="13" y="13" width="299" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -209,19 +209,27 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pni-CI-jx3">
+                                        <rect key="frame" x="320" y="16.5" width="40" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="u31-wm-FPT" firstAttribute="top" secondItem="07d-Ri-fqu" secondAttribute="bottom" constant="10" id="0qe-LI-aaV"/>
                                     <constraint firstItem="07d-Ri-fqu" firstAttribute="leading" secondItem="bdu-rU-tiy" secondAttribute="leading" constant="13" id="3jC-PO-H4u"/>
+                                    <constraint firstItem="Pni-CI-jx3" firstAttribute="leading" secondItem="07d-Ri-fqu" secondAttribute="trailing" constant="8" id="8gj-PU-MFR"/>
                                     <constraint firstItem="eZk-Pa-vX0" firstAttribute="leading" secondItem="bdu-rU-tiy" secondAttribute="leading" constant="16" id="DST-uE-Dpe"/>
                                     <constraint firstItem="u31-wm-FPT" firstAttribute="leading" secondItem="bdu-rU-tiy" secondAttribute="leading" constant="16" id="DXI-Vb-vba"/>
                                     <constraint firstItem="eZk-Pa-vX0" firstAttribute="leading" secondItem="yHs-2a-5VT" secondAttribute="leading" constant="-49" id="EDo-23-cWw"/>
                                     <constraint firstItem="u31-wm-FPT" firstAttribute="leading" secondItem="eZk-Pa-vX0" secondAttribute="leading" id="KyJ-4I-4Fk"/>
+                                    <constraint firstItem="Pni-CI-jx3" firstAttribute="firstBaseline" secondItem="07d-Ri-fqu" secondAttribute="firstBaseline" id="Mss-QX-Fp3"/>
                                     <constraint firstAttribute="bottom" secondItem="gb0-t3-1lx" secondAttribute="bottom" constant="26" id="NGn-53-yxQ"/>
                                     <constraint firstItem="8oA-D6-YlC" firstAttribute="top" secondItem="yHs-2a-5VT" secondAttribute="bottom" constant="9" id="RhS-Vu-Cji"/>
-                                    <constraint firstItem="07d-Ri-fqu" firstAttribute="trailing" secondItem="u31-wm-FPT" secondAttribute="trailing" id="SnD-hr-uEW"/>
+                                    <constraint firstItem="07d-Ri-fqu" firstAttribute="trailing" secondItem="u31-wm-FPT" secondAttribute="trailing" constant="-47" id="SnD-hr-uEW"/>
                                     <constraint firstItem="8oA-D6-YlC" firstAttribute="trailing" secondItem="gb0-t3-1lx" secondAttribute="trailing" id="Vqp-cY-T4C"/>
-                                    <constraint firstAttribute="trailing" secondItem="07d-Ri-fqu" secondAttribute="trailing" constant="16" id="VvS-cY-8pM"/>
+                                    <constraint firstAttribute="trailing" secondItem="07d-Ri-fqu" secondAttribute="trailing" constant="63" id="VvS-cY-8pM"/>
                                     <constraint firstItem="07d-Ri-fqu" firstAttribute="top" secondItem="bdu-rU-tiy" secondAttribute="top" constant="13" id="Y8O-7h-AFy"/>
                                     <constraint firstItem="yHs-2a-5VT" firstAttribute="trailing" secondItem="8oA-D6-YlC" secondAttribute="trailing" id="ZiQ-lj-6lr"/>
                                     <constraint firstItem="eZk-Pa-vX0" firstAttribute="top" secondItem="u31-wm-FPT" secondAttribute="bottom" constant="14" id="aHq-sX-HPo"/>
@@ -247,13 +255,14 @@
                     <connections>
                         <outlet property="descriptionView" destination="gb0-t3-1lx" id="uGw-7T-VOd"/>
                         <outlet property="imageView" destination="u31-wm-FPT" id="e8o-Ev-3LU"/>
+                        <outlet property="likeCountLabel" destination="Pni-CI-jx3" id="nHG-eP-d32"/>
                         <outlet property="tagView" destination="yHs-2a-5VT" id="JbH-bu-pFE"/>
                         <outlet property="titleView" destination="07d-Ri-fqu" id="q56-py-Qnb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TRA-J7-bp0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1316" y="-191"/>
+            <point key="canvasLocation" x="1316" y="-191.1544227886057"/>
         </scene>
         <!--Explore-->
         <scene sceneID="saf-ZP-QaD">
