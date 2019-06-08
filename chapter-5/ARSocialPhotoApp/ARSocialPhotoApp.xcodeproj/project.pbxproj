@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4924AC8D22AC3109005C8D2B /* PhotoARSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924AC8C22AC3109005C8D2B /* PhotoARSceneViewController.swift */; };
 		49A457AC225909C6007B322B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A457AB225909C6007B322B /* AppDelegate.swift */; };
 		49A457B1225909C6007B322B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A457AF225909C6007B322B /* Main.storyboard */; };
 		49A457B3225909C8007B322B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49A457B2225909C8007B322B /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		2169E3A701BB3AC9D49CA2D0 /* Pods_ARSocialPhotoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARSocialPhotoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4924AC8C22AC3109005C8D2B /* PhotoARSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoARSceneViewController.swift; sourceTree = "<group>"; };
 		49A457A8225909C6007B322B /* ARSocialPhotoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARSocialPhotoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A457AB225909C6007B322B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49A457B0225909C6007B322B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 		49A457AA225909C6007B322B /* ARSocialPhotoApp */ = {
 			isa = PBXGroup;
 			children = (
+				4924AC8C22AC3109005C8D2B /* PhotoARSceneViewController.swift */,
 				49B6F9CC226DDBD7007D6274 /* PhotoProfileViewController.swift */,
 				49A457E322593659007B322B /* PhotoCollectionViewModel.swift */,
 				49A457E122590EF7007B322B /* PhotoCollectionViewController.swift */,
@@ -290,6 +293,7 @@
 				49A457E222590EF7007B322B /* PhotoCollectionViewController.swift in Sources */,
 				49B6F9D3226F5549007D6274 /* SharedPhotoCollectionViewController.swift in Sources */,
 				49B6F9CD226DDBD7007D6274 /* PhotoProfileViewController.swift in Sources */,
+				4924AC8D22AC3109005C8D2B /* PhotoARSceneViewController.swift in Sources */,
 				49A457E422593659007B322B /* PhotoCollectionViewModel.swift in Sources */,
 				49A457AC225909C6007B322B /* AppDelegate.swift in Sources */,
 				49B6F9D1226F54FD007D6274 /* LocalPhotoCollectionViewController.swift in Sources */,
