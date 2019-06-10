@@ -10,37 +10,179 @@ import UIKit
 import ARKit
 
 class PhotoARSceneViewController: UIViewController {
-
+    
     @IBOutlet weak var sceneView: ARSCNView!
+    
+    var currentNode : SCNNode? = nil
+    var lastTranslation : CGPoint = CGPoint.zero
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
         configuration.isLightEstimationEnabled = true
         
         sceneView.delegate = self
         sceneView.antialiasingMode = .multisampling4X
         sceneView.session.run(configuration)
         
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
+        
         #if DEBUG
-        sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
+        //-- if you experience issues when adding or removing objects,
+        //-- you may need to comment this line
+//        sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
         sceneView.showsStatistics = true
         #endif
         
-        //-- configure lighting
-        sceneView.autoenablesDefaultLighting = true
-        sceneView.automaticallyUpdatesLighting = true
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(PhotoARSceneViewController.tap(withGestureRecognizer:)))
+        sceneView.addGestureRecognizer(tapGestureRecognizer)
+        
+        let longTapGestureRecognizer = UILongPressGestureRecognizer(
+            target: self,
+            action: #selector(PhotoARSceneViewController.longTap(withGestureRecognizer:)))
+        sceneView.addGestureRecognizer(longTapGestureRecognizer)
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(PhotoARSceneViewController.pan(withGestureRecognizer:)))
+        sceneView.addGestureRecognizer(panGestureRecognizer)
+        
+        let pinchGestureRecognizer = UIPinchGestureRecognizer(
+            target: self,
+            action: #selector(PhotoARSceneViewController.pinch(withGestureRecognizer:)))
+        sceneView.addGestureRecognizer(pinchGestureRecognizer)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
     }
+    
+    func objectAtLocation(_ location: CGPoint) -> SCNNode? {
+        
+        let hitTestOptions = [SCNHitTestOption.boundingBoxOnly : true]
+        let hitTest = sceneView.hitTest(location, options: hitTestOptions)
+        
+        var node : SCNNode?  = nil
+        if let hit = hitTest.first {
+            node = hit.node
+            while (node != nil && node?.name != "rootNode") {
+                node = node?.parent
+            }
+        }
+        return node
+    }
+    
+    @objc func longTap(withGestureRecognizer recognizer: UIGestureRecognizer) {
+        
+        let tapLocation = recognizer.location(in: sceneView)
+        if let node = objectAtLocation(tapLocation) {
+            node.removeFromParentNode()
+        }
+    }
+    
+    @objc func tap(withGestureRecognizer recognizer: UIGestureRecognizer) {
+        
+        let tapLocation = recognizer.location(in: sceneView)
+        if objectAtLocation(tapLocation) != nil {
+            return
+        }
+        
+        let hitTest = sceneView.hitTest(tapLocation, types: .featurePoint)
+        guard let featurePoint = hitTest.first else { return }
+        let rotate = SCNMatrix4MakeRotation(sceneView.session.currentFrame!.camera.eulerAngles.y, 0, 1, 0)
+        let scale = SCNMatrix4MakeScale(0.5, 0.5, 0.5)
+        
+        var transform = simd_mul(featurePoint.worldTransform, simd_float4x4(rotate))
+        transform = simd_mul(transform, simd_float4x4(scale))
+        
+        sceneView.session.add(anchor: Photo3DObjectAnchor(transform: transform))
+    }
+    
+    @objc func pan(withGestureRecognizer recognizer: UIPanGestureRecognizer) {
+
+        if recognizer.state == .began {
+            let tapLocation = recognizer.location(in: sceneView)
+            guard let node = objectAtLocation(tapLocation) else {
+                recognizer.state = .cancelled
+                return
+            }
+            currentNode = node
+            lastTranslation = CGPoint.zero
+        }
+        
+        if recognizer.state == .changed {
+            
+            let translation = recognizer.translation(in: sceneView)
+            let dx = Float(translation.x - lastTranslation.x)
+            let dy = Float(translation.y - lastTranslation.y)
+            let ax = dx / 90.0
+            let ay = dy / 120.0
+            lastTranslation = translation
+            
+            let rotateY = SCNMatrix4MakeRotation(ax, 0, 1, 0)
+            let rotateX = SCNMatrix4MakeRotation(ay, 1, 0, 0)
+            currentNode?.transform = SCNMatrix4Mult(SCNMatrix4Mult(currentNode!.transform, rotateX), rotateY)
+        }
+    }
+
+    @objc func pinch(withGestureRecognizer recognizer: UIPinchGestureRecognizer) {
+        
+        if recognizer.state == .began {
+            let tapLocation = recognizer.location(in: sceneView)
+            guard let node = objectAtLocation(tapLocation) else {
+                recognizer.state = .cancelled
+                return
+            }
+            currentNode = node
+        }
+        
+        if recognizer.state == .changed {
+            
+            let s = Float(recognizer.scale)
+            recognizer.scale = 1.0;
+
+            let scale = SCNMatrix4MakeScale(s, s, s)
+            currentNode?.transform = SCNMatrix4Mult(currentNode!.transform, scale)
+        }
+    }
 
 }
 
 extension PhotoARSceneViewController : ARSCNViewDelegate {
+    
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        
+        if let anchor = anchor as? Photo3DObjectAnchor {
+            DispatchQueue.main.async {
+                
+                if let model = anchor.make3DBodyNode() {
+                    node.addChildNode(model)
+                }
+            }
+        }
+    }
+}
 
+extension PhotoARSceneViewController : ARSessionObserver {
+
+    func session(_ session: ARSession, didFailWithError error: Error) {
+        // Present an error message to the user
+        
+    }
+    
+    func sessionWasInterrupted(_ session: ARSession) {
+        // Inform the user that the session has been interrupted, for example, by presenting an overlay
+        
+    }
+    
+    func sessionInterruptionEnded(_ session: ARSession) {
+        // Reset tracking and/or remove existing anchors if consistent tracking is required
+        
+    }
+    
 }
