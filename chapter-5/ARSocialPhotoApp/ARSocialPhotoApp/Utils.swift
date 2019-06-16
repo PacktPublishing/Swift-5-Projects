@@ -9,6 +9,8 @@
 import Foundation
 import Photos
 import Firebase
+import SceneKit
+import ARKit
 
 func URLIntoDocuments(_ component: String) -> URL {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory,
@@ -80,4 +82,46 @@ extension UIImageView {
                               placeholderImage: placeholder) { (image, error, type, url) in
         }
     }
+}
+
+extension float4x4 {
+    var translation: float3 {
+        let translation = self.columns.3
+        return float3(translation.x, translation.y, translation.z)
+    }
+}
+
+func createPlane(_ anchor: ARPlaneAnchor) -> SCNNode {
+    
+    let width = CGFloat(anchor.extent.x)
+    let height = CGFloat(anchor.extent.z)
+    let extentPlane = SCNPlane(width: width, height: height)
+    extentPlane.materials.first?.diffuse.contents = UIColor(red: 0.25, green: 0.25, blue: 0.75, alpha: 0.5)
+    
+    let extentNode = SCNNode(geometry: extentPlane)
+    extentNode.simdPosition = anchor.center
+    extentNode.eulerAngles.x = -.pi / 2
+    
+    return extentNode
+}
+
+func updatePlane(_ node: SCNNode, plane: SCNPlane, anchor: ARPlaneAnchor) {
+    
+    plane.width = CGFloat(anchor.extent.x)
+    plane.height = CGFloat(anchor.extent.z)
+    
+    node.simdPosition = anchor.center
+}
+
+func pictureNode(_ name: String = "ImageOnTheWall") -> SCNNode? {
+    
+    let node = SCNNode(geometry: SCNPlane(width: 0.25, height: 0.25))
+    
+    let material = SCNMaterial()
+    material.diffuse.contents = UIImage(named: name)
+    node.geometry?.materials = [material]
+    node.physicsBody? = .static()
+    node.name = name
+    
+    return node
 }

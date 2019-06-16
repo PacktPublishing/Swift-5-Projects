@@ -16,10 +16,14 @@ class PhotoARSceneViewController: UIViewController {
     var currentNode : SCNNode? = nil
     var lastTranslation : CGPoint = CGPoint.zero
     
+    var pictures : [UUID : SCNNode] = [:]
+    var planes : [UUID : SCNNode] = [:]
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = [.horizontal, .vertical]
         configuration.isLightEstimationEnabled = true
         
         sceneView.delegate = self
@@ -82,6 +86,19 @@ class PhotoARSceneViewController: UIViewController {
         let tapLocation = recognizer.location(in: sceneView)
         if let node = objectAtLocation(tapLocation) {
             node.removeFromParentNode()
+            return
+        }
+        
+        if let hitPlane = sceneView.hitTest(tapLocation, types: .existingPlane).first,
+            let anchor = hitPlane.anchor as? ARPlaneAnchor {
+            
+            let anchorId = anchor.identifier
+            if let node = pictures[anchorId] {
+                let plane = createPlane(anchor)
+                planes[anchor.identifier]?.addChildNode(plane)
+                pictures.removeValue(forKey: anchorId)
+                node.removeFromParentNode()
+            }
         }
     }
     
@@ -89,6 +106,27 @@ class PhotoARSceneViewController: UIViewController {
         
         let tapLocation = recognizer.location(in: sceneView)
         if objectAtLocation(tapLocation) != nil {
+            return
+        }
+        
+        if let hitPlane = sceneView.hitTest(tapLocation, types: .existingPlane).first,
+            let anchor = hitPlane.anchor as? ARPlaneAnchor {
+
+            let anchorId = anchor.identifier
+            let transform = hitPlane.worldTransform
+            if pictures[anchorId] == nil {
+                
+                planes[anchorId]?.childNodes[0].removeFromParentNode()
+                guard let node = pictureNode() else { return }
+
+                node.transform = SCNMatrix4(anchor.transform)
+                node.eulerAngles = SCNVector3(node.eulerAngles.x - .pi / 2,
+                                              node.eulerAngles.y,
+                                              node.eulerAngles.z)
+                node.position = SCNVector3(transform.translation)
+                sceneView.scene.rootNode.addChildNode(node)
+                pictures[anchorId] = node
+            }
             return
         }
         
@@ -150,7 +188,6 @@ class PhotoARSceneViewController: UIViewController {
             currentNode?.transform = SCNMatrix4Mult(currentNode!.transform, scale)
         }
     }
-
 }
 
 extension PhotoARSceneViewController : ARSCNViewDelegate {
@@ -159,12 +196,37 @@ extension PhotoARSceneViewController : ARSCNViewDelegate {
         
         if let anchor = anchor as? Photo3DObjectAnchor {
             DispatchQueue.main.async {
-                
                 if let model = anchor.make3DBodyNode() {
                     node.addChildNode(model)
                 }
             }
         }
+        
+        if let anchor = anchor as? ARPlaneAnchor {
+            DispatchQueue.main.async {
+                let plane = createPlane(anchor)
+                self.planes[anchor.identifier] = node
+                node.addChildNode(plane)
+            }
+        }
+    }
+    
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        
+        guard let anchor = anchor as? ARPlaneAnchor,
+            let planeNode = node.childNodes.first,
+            let plane = planeNode.geometry as? SCNPlane
+            else { return }
+        
+        updatePlane(planeNode, plane: plane, anchor: anchor)
+    }
+
+    func renderer(_ renderer: SCNSceneRenderer,
+                  didRemove node: SCNNode,
+                  for anchor: ARAnchor) {
+
+        guard anchor is ARPlaneAnchor else { return }
+        node.removeFromParentNode()
     }
 }
 
