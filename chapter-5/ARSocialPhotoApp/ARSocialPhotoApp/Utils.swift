@@ -113,6 +113,37 @@ func updatePlane(_ node: SCNNode, plane: SCNPlane, anchor: ARPlaneAnchor) {
     node.simdPosition = anchor.center
 }
 
+func createGrid(_ anchor: ARPlaneAnchor) ->SCNNode {
+    
+    let geometry = SCNPlane(width: CGFloat(anchor.extent.x), height: CGFloat(anchor.extent.z))
+    
+    let material = SCNMaterial()
+    material.diffuse.contents = UIImage(named:"Grid")
+    
+    geometry.materials = [material]
+    let node = SCNNode(geometry: geometry)
+    node.physicsBody =
+        SCNPhysicsBody(type: .static,
+                       shape: SCNPhysicsShape(geometry: geometry, options: nil))
+    node.physicsBody?.categoryBitMask = 2
+    
+    node.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z);
+    node.transform = SCNMatrix4MakeRotation(Float(-.pi/2.0), 1.0, 0.0, 0.0);
+    
+    return node
+}
+
+func updateGrid(_ node: SCNNode, geometry: SCNPlane, anchor: ARPlaneAnchor) {
+    
+    geometry.width = CGFloat(anchor.extent.x);
+    geometry.height = CGFloat(anchor.extent.z);
+    node.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z);
+    
+    node.physicsBody =
+        SCNPhysicsBody(type: .static,
+                       shape: SCNPhysicsShape(geometry: geometry, options: nil))
+}
+
 func pictureNode(image: UIImage?) -> SCNNode? {
     
     let node = SCNNode(geometry: SCNPlane(width: 0.25, height: 0.25))

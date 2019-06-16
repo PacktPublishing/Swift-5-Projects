@@ -18,6 +18,8 @@ class PhotoARSceneViewController: UIViewController {
     
     var pictures : [UUID : SCNNode] = [:]
     var planes : [UUID : SCNNode] = [:]
+    
+    var useGrid : Bool = false
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -116,7 +118,7 @@ class PhotoARSceneViewController: UIViewController {
             
             let anchorId = anchor.identifier
             if let node = pictures[anchorId] {
-                let plane = createPlane(anchor)
+                let plane = createGrid(anchor)
                 planes[anchor.identifier]?.addChildNode(plane)
                 pictures.removeValue(forKey: anchorId)
                 node.removeFromParentNode()
@@ -215,7 +217,7 @@ extension PhotoARSceneViewController : ARSCNViewDelegate {
         
         if let anchor = anchor as? ARPlaneAnchor {
             DispatchQueue.main.async {
-                let plane = createPlane(anchor)
+                let plane = self.useGrid ? createGrid(anchor) : createPlane(anchor)
                 self.planes[anchor.identifier] = node
                 node.addChildNode(plane)
             }
@@ -229,7 +231,11 @@ extension PhotoARSceneViewController : ARSCNViewDelegate {
             let plane = planeNode.geometry as? SCNPlane
             else { return }
         
-        updatePlane(planeNode, plane: plane, anchor: anchor)
+        if (useGrid) {
+            updateGrid(planeNode, geometry: plane, anchor: anchor)
+        } else {
+            updatePlane(planeNode, plane: plane, anchor: anchor)
+        }
     }
 
     func renderer(_ renderer: SCNSceneRenderer,
