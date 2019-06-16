@@ -97,7 +97,6 @@ class LocalPhotoCollectionViewController: PhotoCollectionViewController {
             }
         }
     }
-
 }
 
 extension LocalPhotoCollectionViewController: UIImagePickerControllerDelegate {
@@ -116,7 +115,7 @@ extension LocalPhotoCollectionViewController: UIImagePickerControllerDelegate {
         imagePicker.dismiss(animated: true) {
             if let image = info[.originalImage] as? UIImage {
                 self.viewModel.addPhoto(image: image)
-                self.collectionView.reloadData()
+                //self.collectionView.reloadData()
             }
         }
     }

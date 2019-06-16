@@ -66,6 +66,28 @@ class PhotoARSceneViewController: UIViewController {
         sceneView.session.pause()
     }
     
+    func addPictureNode(_ hitPlane: ARHitTestResult, image: UIImage?) {
+        
+        if let anchor = hitPlane.anchor as? ARPlaneAnchor {
+            
+            let anchorId = anchor.identifier
+            if pictures[anchorId] == nil {
+                
+                let transform = hitPlane.worldTransform
+                planes[anchorId]?.childNodes[0].removeFromParentNode()
+                guard let node = pictureNode(image: image) else { return }
+                
+                node.transform = SCNMatrix4(anchor.transform)
+                node.eulerAngles = SCNVector3(node.eulerAngles.x - .pi / 2,
+                                              node.eulerAngles.y,
+                                              node.eulerAngles.z)
+                node.position = SCNVector3(transform.translation)
+                sceneView.scene.rootNode.addChildNode(node)
+                pictures[anchorId] = node
+            }
+        }
+    }
+    
     func objectAtLocation(_ location: CGPoint) -> SCNNode? {
         
         let hitTestOptions = [SCNHitTestOption.boundingBoxOnly : true]
@@ -113,19 +135,8 @@ class PhotoARSceneViewController: UIViewController {
             let anchor = hitPlane.anchor as? ARPlaneAnchor {
 
             let anchorId = anchor.identifier
-            let transform = hitPlane.worldTransform
             if pictures[anchorId] == nil {
-                
-                planes[anchorId]?.childNodes[0].removeFromParentNode()
-                guard let node = pictureNode() else { return }
-
-                node.transform = SCNMatrix4(anchor.transform)
-                node.eulerAngles = SCNVector3(node.eulerAngles.x - .pi / 2,
-                                              node.eulerAngles.y,
-                                              node.eulerAngles.z)
-                node.position = SCNVector3(transform.translation)
-                sceneView.scene.rootNode.addChildNode(node)
-                pictures[anchorId] = node
+                self.performSegue(withIdentifier: "ShowPhotoCollection", sender: hitPlane)
             }
             return
         }
@@ -247,4 +258,16 @@ extension PhotoARSceneViewController : ARSessionObserver {
         
     }
     
+}
+
+extension PhotoARSceneViewController : UINavigationControllerDelegate {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let hitPlane = sender as? ARHitTestResult,
+            let vc = segue.destination as? ChooserPhotoCollectionViewController {
+            vc.callback = { image in
+                self.addPictureNode(hitPlane, image: image)
+            }
+        }
+    }
 }

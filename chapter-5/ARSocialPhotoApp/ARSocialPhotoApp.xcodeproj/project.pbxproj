@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4924AC8D22AC3109005C8D2B /* PhotoARSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4924AC8C22AC3109005C8D2B /* PhotoARSceneViewController.swift */; };
+		493D1EDA22B641A100C1A7AD /* ChooserPhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493D1ED922B641A100C1A7AD /* ChooserPhotoCollectionViewController.swift */; };
 		49A457AC225909C6007B322B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49A457AB225909C6007B322B /* AppDelegate.swift */; };
 		49A457B1225909C6007B322B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49A457AF225909C6007B322B /* Main.storyboard */; };
 		49A457B3225909C8007B322B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49A457B2225909C8007B322B /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		2169E3A701BB3AC9D49CA2D0 /* Pods_ARSocialPhotoApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ARSocialPhotoApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4924AC8C22AC3109005C8D2B /* PhotoARSceneViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoARSceneViewController.swift; sourceTree = "<group>"; };
+		493D1ED922B641A100C1A7AD /* ChooserPhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooserPhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		49A457A8225909C6007B322B /* ARSocialPhotoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARSocialPhotoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49A457AB225909C6007B322B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49A457B0225909C6007B322B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				49A457AF225909C6007B322B /* Main.storyboard */,
 				49B6F9D0226F54FD007D6274 /* LocalPhotoCollectionViewController.swift */,
 				49B6F9D2226F5549007D6274 /* SharedPhotoCollectionViewController.swift */,
+				493D1ED922B641A100C1A7AD /* ChooserPhotoCollectionViewController.swift */,
 				49A457B2225909C8007B322B /* Assets.xcassets */,
 				49FEFACA22AEF45F001FC776 /* ARAssets.scnassets */,
 				49A457B4225909C8007B322B /* LaunchScreen.storyboard */,
@@ -299,6 +302,7 @@
 				49A457DF22590E20007B322B /* PhotoCollectionViewCell.swift in Sources */,
 				49A457E222590EF7007B322B /* PhotoCollectionViewController.swift in Sources */,
 				49FEFACD22AEF474001FC776 /* Photo3DObjectAnchor.swift in Sources */,
+				493D1EDA22B641A100C1A7AD /* ChooserPhotoCollectionViewController.swift in Sources */,
 				49B6F9D3226F5549007D6274 /* SharedPhotoCollectionViewController.swift in Sources */,
 				49B6F9CD226DDBD7007D6274 /* PhotoProfileViewController.swift in Sources */,
 				4924AC8D22AC3109005C8D2B /* PhotoARSceneViewController.swift in Sources */,

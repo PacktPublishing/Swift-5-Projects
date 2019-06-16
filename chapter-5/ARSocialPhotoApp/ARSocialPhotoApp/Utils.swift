@@ -113,15 +113,19 @@ func updatePlane(_ node: SCNNode, plane: SCNPlane, anchor: ARPlaneAnchor) {
     node.simdPosition = anchor.center
 }
 
-func pictureNode(_ name: String = "ImageOnTheWall") -> SCNNode? {
+func pictureNode(image: UIImage?) -> SCNNode? {
     
     let node = SCNNode(geometry: SCNPlane(width: 0.25, height: 0.25))
     
     let material = SCNMaterial()
-    material.diffuse.contents = UIImage(named: name)
+    material.diffuse.contents = image
     node.geometry?.materials = [material]
     node.physicsBody? = .static()
-    node.name = name
     
     return node
+}
+
+func pictureNode(_ name: String = "ImageOnTheWall") -> SCNNode? {
+    
+    return pictureNode(image:UIImage(named: name))
 }

@@ -32,6 +32,7 @@ class PhotoCollectionViewController: UICollectionViewController {
             
             cell.photoInfo = PhotoInfo(uid: snap.documentID,
                                        data: snap.data()!)
+            print("PHOTOINFO FOR CELL \(indexPath) : \(cell.photoInfo)")
             return cell
         }
     }
@@ -57,10 +58,9 @@ extension PhotoCollectionViewController : UINavigationControllerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let photoCell = sender as? PhotoCollectionViewCell,
             let vc = segue.destination as? PhotoViewController {
-                vc.photoInfo = photoCell.photoInfo
+            vc.photoInfo = photoCell.photoInfo
             vc.callback = { info in
                 self.viewModel.updatePhoto(photo: info)
-                //self.collectionView.reloadData()
             }
         }
     }

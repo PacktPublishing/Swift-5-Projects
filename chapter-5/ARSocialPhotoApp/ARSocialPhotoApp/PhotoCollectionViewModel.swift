@@ -28,6 +28,12 @@ class PhotoCollectionViewModel {
         }
     }
     
+    static func anyQuery() -> (CollectionReference) -> Query {
+        return { (_ c : CollectionReference) -> Query in
+            return c
+        }
+    }
+    
     var baseQuery : Query
     var currentQuery : Query
     var currentTag : String? {
